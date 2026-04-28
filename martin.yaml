@@ -1,0 +1,20 @@
+# Martin tile server — schema per https://maplibre.org/martin/config-file/
+#
+# Run on the host:
+#   martin --config martin.yaml
+#
+# Docker: scripts/martin.cmd — host public/ → /tiles, MARTIN_TILES_DIR=/tiles, --config /config/martin.yaml
+#
+# Source ids below become URL paths: /isochrones/{z}/{x}/{y} and /transit_stops/{z}/{x}/{y}
+# (same port, default listen_addresses).
+
+listen_addresses: "0.0.0.0:3000"
+
+# Log missing/invalid tile sources but keep other sources up (useful while only one .mbtiles exists).
+on_invalid: warn
+
+mbtiles:
+  sources:
+    # isochrones: ${MARTIN_TILES_DIR:-./public}/isochrones.mbtiles
+    transit_stops: ${MARTIN_TILES_DIR:-./public}/transit_stops.mbtiles
+    transit_route_geom: ${MARTIN_TILES_DIR:-./public}/transit_routegeom.mbtiles
